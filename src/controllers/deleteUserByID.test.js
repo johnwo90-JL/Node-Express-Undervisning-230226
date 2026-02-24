@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import request from "supertest";
 
 import app from "../app.js";
@@ -10,8 +10,11 @@ describe("DELETE /user/:id", () => {
         users.push(
             { id: 1, email: 'test1@test.com', username: 'test1', password: "pw1"},
             { id: 2, email: 'test2@test.com', username: 'test2', password: "pw2"}
-        )
-    })
+        );
+        console.log(users);
+    });
+
+    afterEach(() => users.splice(0, users.length));
 
     it("returns 400 if id is not a posetive integer", async () => {
         const res = await request(app).delete("/users/abc");
