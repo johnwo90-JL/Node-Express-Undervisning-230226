@@ -1,9 +1,9 @@
 import express from "express";
 
-import { getAllUsers } from "../controllers/getAllUsers.js";
-import { createUser } from "../controllers/createUser.js";
-import { getUserByID } from "../controllers/getUserByID.js";
-import { deleteUser } from "../controllers/deleteUserByID.js";
+import { getAllUsers } from "../controllers/user-controller/getAllUsers.js";
+import { createUser } from "../controllers/user-controller/createUser.js";
+import { getUserByID } from "../controllers/user-controller/getUserByID.js";
+import { deleteUser } from "../controllers/user-controller/deleteUserByID.js";
 
 const router = express.Router()
 

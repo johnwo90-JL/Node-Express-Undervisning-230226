@@ -1,4 +1,4 @@
-import { users } from "../store/users.js";
+import { users } from "../../store/users.js";
 
 export const deleteUser = (req, res) => {
     const id = Number(req.params.id)

@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import request from "supertest";
 
-import app from "../app.js";
-import { users } from "../store/users.js";
+import app from "../../app.js";
+import { users } from "../../store/users.js";
 
 
 describe("DELETE /user/:id", () => {
@@ -11,7 +11,6 @@ describe("DELETE /user/:id", () => {
             { id: 1, email: 'test1@test.com', username: 'test1', password: "pw1"},
             { id: 2, email: 'test2@test.com', username: 'test2', password: "pw2"}
         );
-        console.log(users);
     });
 
     afterEach(() => users.splice(0, users.length));

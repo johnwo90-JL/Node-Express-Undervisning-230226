@@ -15,8 +15,6 @@ describe("POST /users", () => {
             .accept("application/json"); // MIME-type
 
         expect(res.status).toBe(201); // Created
-
-        console.log("Actual status:", res.status);
     });
 
     it("returns 409 if user already exists", async () => {
@@ -30,7 +28,5 @@ describe("POST /users", () => {
             .accept("application/json"); // MIME-type
 
         expect(res.status).toEqual(409); // Created
-
-        console.log("Actual status:", res.status);
     });
 });

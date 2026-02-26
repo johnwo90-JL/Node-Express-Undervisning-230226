@@ -1,5 +1,5 @@
-import { users } from "../store/users.js";
-import { CreateUserSchema } from "../schema/user.schema.js";
+import { users } from "../../store/users.js";
+import { CreateUserSchema } from "../../schema/user.schema.js";
 
 export const createUser = (req, res) => {
     const result = CreateUserSchema.parse(req);
