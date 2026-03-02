@@ -2,9 +2,9 @@ import { users } from "../../store/users.js";
 import { CreateUserSchema } from "../../schema/user.schema.js";
 
 export const createUser = (req, res) => {
-    const result = CreateUserSchema.parse(req);
+    // const result = CreateUserSchema.parse(req);
 
-    console.log("[LOG] Data:", JSON.stringify(result, null, 4));
+    // console.log("[LOG] Data:", JSON.stringify(result, null, 4));
 
     // res.sendStatus(200);
     // return;
@@ -24,7 +24,7 @@ export const createUser = (req, res) => {
         username,
         email,
         password
-    } = result.body;
+    } = req.validated.body;
 
     // Finne en bruker i users som matcher med email
     const existingUser = users.find(userObj => userObj.username === username);

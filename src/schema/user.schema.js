@@ -10,6 +10,6 @@ export const CreateUserSchema = z.object({
 
 
 // Eksempel - Validering, transformering
-const ValidateString = z.string().min(5).max(64).toUpperCase();
+// const ValidateString = z.string().min(5).max(64).toUpperCase();
 
-console.log(ValidateString.parse("hello!"));
+// console.log(ValidateString.parse("hello!"));
