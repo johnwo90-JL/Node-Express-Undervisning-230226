@@ -1,6 +1,9 @@
 import express from "express"
-
 import userRouter from "./routes/userRouter.js"
+
+import { sequelize } from "./config/db.config.js";
+
+sequelize.sync();
 
 
 const app = express();
