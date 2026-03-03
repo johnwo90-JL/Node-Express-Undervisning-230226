@@ -1,26 +1,18 @@
-import { users } from "../../store/users.js";
+import { User } from "../../models/user.model.js";
 
-export const deleteUser = (req, res) => {
-    const id = Number(req.params.id)
-    if (!Number.isInteger(id) || id < 1) {
-        return res.status(400).json({
-            message: "Invalid ID"
-        })
-    }
-    // 
+export const deleteUser = async (req, res) => {
+    console.log("[Handler] Request ID:", req.requestId);
+    
+    const { params: { id } } = req.validated;
 
-    const userIndex = users.findIndex((user) => user.id === Number(id));
+    const user = await User.findByPk(id);
 
-    if (userIndex === -1) {
-        return res.status(404).json({
-            message: `User with id ${id} not found.`,
-        });
+    if (user === null) {
+        res.sendStatus(404);
+        return;
     }
 
-    const deletedUser = users.splice(userIndex, 1);
+    await user.destroy();
 
-    res.status(200).json({
-        message: "User deleted successfully",
-        data: deletedUser[0],
-    });
+    res.status(204).json(user.toJSON());
 };

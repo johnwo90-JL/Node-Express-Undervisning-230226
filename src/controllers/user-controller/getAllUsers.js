@@ -1,8 +1,9 @@
-import { users } from "../../store/users.js";
+import { User } from "../../models/user.model.js";
 
 
-export const getAllUsers = (req, res) => {
+
+export const getAllUsers = async (req, res) => {
     console.log("[Handler] Request ID:", req.requestId);
 
-    res.status(200).json(users);
+    res.status(200).json(await User.findAll());
 };

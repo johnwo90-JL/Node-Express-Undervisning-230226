@@ -1,10 +1,9 @@
 import express from "express"
 import userRouter from "./routes/userRouter.js"
+import { syncDatabase, testConnection } from "./db/sqlite.db.js";
 
-import { sequelize } from "./config/db.config.js";
-
-sequelize.sync();
-
+await testConnection();
+await syncDatabase();
 
 const app = express();
 
@@ -31,7 +30,7 @@ app.use((err, req, res, next) => {
         message,
     });
 
-    res.status(500).json({
+    res.status(statusCode).json({
         success: false,
         statusCode,
         message,

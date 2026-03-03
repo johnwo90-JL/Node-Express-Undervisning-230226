@@ -1,19 +1,17 @@
-import { users } from "../../store/users.js";
+import { User } from "../../models/user.model.js";
 
 
-export const getUserByID = (req, res) => {
-    const id = Number(req.params.id);
-    if (!Number.isInteger(id) || id < 1) {
-        return res.status(400).json({
-            message: "Invalid ID!"
-        })
+export const getUserByID = async (req, res) => {
+    console.log("[Handler] Request ID:", req.requestId);
+
+    const { params: { id } } = req.validated;
+
+    const user = await User.findByPk(id);
+
+    if (user === null) {
+        res.sendStatus(404);
+        return;
     }
 
-    const user = users.find(userObj => userObj.id === id);
-    if (!user) {
-        return res.status(404).json({
-            message: "User not found."
-        })
-    }
-    return res.status(200).json({data: user})
+    res.status(200).json(user.toJSON());
 }

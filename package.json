@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node .",
     "test": "vitest",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "db:seed": "node ./scripts/seed.db.js"
   },
   "keywords": [],
   "author": "",
