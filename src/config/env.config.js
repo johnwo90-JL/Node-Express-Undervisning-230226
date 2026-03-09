@@ -26,5 +26,3 @@ export const config = {
         storage: process.env.DB_STORAGE || null,
     }
 }
-
-console.log(JSON.stringify(config, null, 4));
