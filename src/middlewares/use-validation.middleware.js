@@ -1,30 +1,29 @@
 import z from "zod";
 
-// (req, res, next) = { 
-//      req => request
-//      res => response
-//      next => next();
-// }
-
 /**
  * @param {z.ZodObject} schema 
  */
 export function useValidation(schema) {
     return async function (req, res, next) {
-        const result = await schema.parseAsync(req); // Valider data
-        console.log("ParseResult:",result);
-    
-        // client -> request -> middleware -> handler
-                                        // -> 400
-                                        // -> 500
-                                        // -> ...
-        req.validated = result;
+        try {
+            const result = await schema.parseAsync({
+                body: req.body,
+                params: req.params,
+                query: req.query,
+                headers: req.headers,
+                cookies: req.cookies,
+                signedCookies: req.signedCookies,
+            });
 
-        next();
+            req.validated = result;
+            next();
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                error.statusCode = 400;
+                error.message = JSON.stringify(error.issues, null, 2);
+            }
+
+            next(error);
+        }
     }
 }
-
-
- // router -> /users -> router.get('/', useValidation(schema), getAllUsers)
-
- // useValidation(schema) -> function (req, res, next)
