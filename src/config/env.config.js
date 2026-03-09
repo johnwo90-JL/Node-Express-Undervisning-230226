@@ -11,6 +11,9 @@ export const config = {
                 accessToken: process.env.JWT_ACCESS_TOKEN_EXPIRY || "3h",
                 refreshToken: process.env.JWT_REFRESH_TOKEN_EXPIRY || "3d",
             }
+        },
+        cookie: {
+            secret: process.env.COOKIE_SECRET || null,
         }
     },
     db: {
