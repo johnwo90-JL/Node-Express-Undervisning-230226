@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 export const User = sequelize.define("User", {
     id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false,
@@ -34,7 +34,7 @@ export const User = sequelize.define("User", {
         validate: {
             isValidRole(value) {
                 if (!Array.isArray(value) || !value.every(role => UserRoles.includes(role))) {
-                    throw new Error(`Invalid role "${role}". Aborting operation.`);
+                    throw new Error("Invalid user role array. Aborting operation.");
                 }
             }
         }
