@@ -18,7 +18,7 @@ for (const email of emails) {
     const newUser = {
         email,
         name: names.pop(),
-        password: "foobar",
+        password: "foobar1234!!",
         roles
     };
 
