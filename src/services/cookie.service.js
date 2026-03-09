@@ -1,11 +1,17 @@
-import { CookieServiceDependenciesSchema } from "../schema/service.schema.js";
+import z from "zod";
+
+import { LoggerServiceSchema } from "./logger.service.js";
+
+export const CookieServiceDependenciesSchema = z.object({
+    logger: LoggerServiceSchema,
+})
 
 export class CookieService {
     #logger;
 
     constructor(dependencies) {
-        const { logger } = CookieServiceDependenciesSchema.parse(dependencies);
-        this.#logger = logger;
+        CookieServiceDependenciesSchema.parse(dependencies);
+        this.#logger = dependencies.logger;
     }
 
     createSignedCookie(name, value, options = {}) {
