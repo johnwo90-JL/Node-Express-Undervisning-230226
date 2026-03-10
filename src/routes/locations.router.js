@@ -1,6 +1,5 @@
 import express from "express";
 import { useRequestId } from "../middlewares/use-request-id.middleware.js";
-import { useRole } from "../middlewares/use-role.middleware.js";
 import { useValidation } from "../middlewares/use-validation.middleware.js";
 import { GetLocationById } from "../schema/location.schema.js";
 
