@@ -10,7 +10,6 @@ export class LocationsService {
     }
 
     async findLocationById(id) {
-        console.log("Called!");
         const location = await Location.findByPk(id);
 
         return location;
