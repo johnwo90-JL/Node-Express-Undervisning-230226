@@ -1,9 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
 import { LoggerService } from "../../src/services/logger.service";
+import { setupTests } from "../setup";
 
+setupTests(); 
 
 describe("Logger sanity-check", () => {
+
     it("should log to console, all variants", async () => {
+        console.log("Test started");
+
         const functions = {
             log: vi.fn(),
             info: vi.fn(),
@@ -19,5 +24,6 @@ describe("Logger sanity-check", () => {
             expect(functions[func]).toHaveBeenCalled();
             expect(functions[func]).toHaveBeenCalledWith(message);
         }
+        console.log("Test finished");
     });
 });

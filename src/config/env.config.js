@@ -23,6 +23,7 @@ export const config = {
         user: process.env.DB_USER || null,
         password: process.env.DB_PASSWORD || null,
         dialect: process.env.DB_DIALECT || null,
-        storage: process.env.DB_STORAGE || null,
+        // db.sqlite -> 
+        storage: process.env.DB_STORAGE?.replace("db", process.env.NODE_ENV === "test" ? "db.test" : "db") || null,
     }
 }

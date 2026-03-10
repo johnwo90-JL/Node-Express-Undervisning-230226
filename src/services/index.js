@@ -2,6 +2,7 @@ import { config } from "../config/env.config.js";
 import { AuthService } from "./auth.service.js";
 import { CookieService } from "./cookie.service.js";
 import { JwtService } from "./jwt.service.js";
+import { LocationsService } from "./locations.service.js";
 import { LoggerService } from "./logger.service.js";
 import { SessionTokenService } from "./session-token.service.js";
 import { UserService } from "./user.service.js";
@@ -42,6 +43,7 @@ export function createServices() {
         jwtService: jwt,
         sessionTokenService: sessionToken,
     }));
+    const location = registerService("location", new LocationsService({ logger }));
 
     return Object.freeze({
         logger,
@@ -50,6 +52,8 @@ export function createServices() {
         user,
         sessionToken,
         auth,
+        location,
+        
         getService,
     });
 }

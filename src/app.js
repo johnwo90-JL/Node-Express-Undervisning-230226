@@ -10,6 +10,9 @@ import { createUsersRouter } from "./routes/users.router.js";
 import { createServices } from "./services/index.js";
 import "./models/session-token.model.js";
 import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import { createLocationsController } from "./controllers/locations.controller.js";
+import { createLocationsRouter } from "./routes/locations.router.js";
 
 await testConnection();
 await syncDatabase();
@@ -29,6 +32,11 @@ const usersController = createUsersController({
     logger: services.logger,
 });
 
+const locationsController = createLocationsController({
+    logger: services.logger,
+    locationsService: services.location,
+});
+
 const authMiddlewares = createAuthMiddlewares({
     authService: services.auth,
 });
@@ -43,6 +51,11 @@ const usersRouter = createUsersRouter({
     authMiddlewares,
 });
 
+const locationsRouter = createLocationsRouter({
+    locationsController,
+    authMiddlewares
+});
+
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes'
 	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -51,7 +64,7 @@ const limiter = rateLimit({
 	ipv6Subnet: 56, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
 });
 
-// app.use(Helmet) // @see https://www.npmjs.com/package/helmet
+app.use(helmet()); // @see https://www.npmjs.com/package/helmet
 app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
 app.use(express.json());
@@ -68,6 +81,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
+app.use("/locations", locationsRouter);
 
 
 
