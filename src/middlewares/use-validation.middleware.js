@@ -17,7 +17,7 @@ export function useValidation(schema) {
 
             req.validated ??= result;
             req.validated = { ...req.validated, ...result };
-            console.log(req.validated);
+            
             next();
         } catch (error) {
             if (error instanceof z.ZodError) {

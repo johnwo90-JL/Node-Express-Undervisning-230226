@@ -4,6 +4,7 @@ configDotenv();
 
 export const config = {
     env: process.env.NODE_ENV || "development",
+    port: process.env.PORT || 8000,
     auth: {
         jwt: {
             secret: process.env.JWT_SECRET || null,

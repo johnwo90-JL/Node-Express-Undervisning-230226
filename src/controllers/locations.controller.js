@@ -3,7 +3,8 @@ import z from "zod";
 export function createLocationsController({ logger, locationsService }) {
     return {
         async getLocationById (req, res) {
-            const result = await locationsService.findLocationById(req.validated.id);
+            const result = await locationsService.findLocationById(req.validated.params.id);
+
             if (result === null) {
                 res.sendStatus(404);
                 return;
