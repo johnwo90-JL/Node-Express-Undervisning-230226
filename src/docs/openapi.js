@@ -2,7 +2,7 @@ import z from "zod";
 import { createDocument } from "zod-openapi";
 import { UserRoles } from "../constants/roles.constants.js";
 import { JwtLoginSchema, RefreshTokenSchema } from "../schema/auth.schema.js";
-import { GetLocationById } from "../schema/location.schema.js";
+import { GetDistanceToLocation, GetLocationById } from "../schema/location.schema.js";
 import {
     CreateUserSchema,
     DeleteUserByIdSchema,
@@ -515,6 +515,29 @@ export const openApiDocument = createDocument({
                         content: {
                             "application/json": {
                                 schema: LocationSchema,
+                            },
+                        },
+                    },
+                    404: {
+                        description: "Location not found.",
+                    },
+                },
+            },
+        },
+         "/locations/{id}/distance": {
+            get: {
+                operationId: "getDistanceToLocation",
+                tags: ["Locations"],
+                requestParams: {
+                    path: GetLocationById.shape.params,
+                    query: GetDistanceToLocation.shape.query
+                },
+                responses: {
+                    200: {
+                        description: "Distance calulated successfully!",
+                        content: {
+                            "application/json": {
+                                
                             },
                         },
                     },
