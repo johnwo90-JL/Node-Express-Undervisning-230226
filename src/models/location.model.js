@@ -9,17 +9,18 @@ export const Location = sequelize.define("Location", {
         primaryKey: true,
         allowNull: false,
     },
-    longitude: {
+    latitude: {
         type: DataTypes.NUMBER,
         defaultValue: 0,
     },
-    latitude: {
+    longitude: {
         type: DataTypes.NUMBER,
         defaultValue: 0,
     },
     label: {
         type: DataTypes.STRING,
         defaultValue: "[DEFAULT]",
+        unique: true,
     },
     description: {
         type: DataTypes.STRING,
