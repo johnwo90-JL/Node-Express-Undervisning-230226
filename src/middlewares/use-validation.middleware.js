@@ -15,7 +15,9 @@ export function useValidation(schema) {
                 signedCookies: req.signedCookies,
             });
 
-            req.validated = result;
+            req.validated ??= result;
+            req.validated = { ...req.validated, ...result };
+            console.log(req.validated);
             next();
         } catch (error) {
             if (error instanceof z.ZodError) {

@@ -13,6 +13,8 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { createLocationsController } from "./controllers/locations.controller.js";
 import { createLocationsRouter } from "./routes/locations.router.js";
+import swaggerUi from "swagger-ui-express";
+import { openApiDocument } from "./docs/openapi.js";
 
 await testConnection();
 await syncDatabase();
@@ -64,6 +66,12 @@ const limiter = rateLimit({
 	ipv6Subnet: 56, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
 });
 
+app.get("/docs/openapi.json", (req, res) => {
+    res.status(200).json(openApiDocument);
+});
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
+
 app.use(helmet()); // @see https://www.npmjs.com/package/helmet
 app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
@@ -94,6 +102,7 @@ app.use((err, req, res, next) => {
         success: false,
         statusCode,
         message,
+        stack: err.stack
     });
 
     res.status(statusCode).json({

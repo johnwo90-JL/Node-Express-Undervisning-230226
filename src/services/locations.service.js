@@ -9,8 +9,7 @@ export class LocationsService extends BaseService {
     constructor({ logger }) {
         super();
 
-        console.log("LoggerDep:", logger);
-        this.#logger = LoggerFunctionsSchema.parse(logger);
+        this.#logger = logger;
     }
 
     async findLocationById(id) {
@@ -21,5 +20,15 @@ export class LocationsService extends BaseService {
         }
 
         return location;
+    }
+
+    /**
+     * 
+     * @param {Location} location 
+     * @param {{ lng: number, lng: number}} gpsCoords 
+     * @returns 
+     */
+    calculateDistanceToLocation(location, gpsCoords = { lat: 0, lng: 0 }) {
+        return location.distanceTo(gpsCoords);
     }
 }

@@ -14,6 +14,18 @@ afterEach(async () => {
 });
 
 describe("Auth and user architecture", () => {
+    it("serves OpenAPI docs", async () => {
+        const openApiResponse = await request(app).get("/docs/openapi.json");
+
+        expect(openApiResponse.status).toBe(200);
+        expect(openApiResponse.body.openapi).toBe("3.1.0");
+        expect(openApiResponse.body.paths["/auth/register"]).toBeDefined();
+
+        const swaggerUiResponse = await request(app).get("/docs/");
+        expect(swaggerUiResponse.status).toBe(200);
+        expect(swaggerUiResponse.text).toContain("Swagger UI");
+    });
+
     it("registers with Sequelize and rejects duplicate email", async () => {
         const firstResponse = await request(app)
             .post("/auth/register")

@@ -1,9 +1,9 @@
 import z from "zod";
 
-export const GetNearestLocation = z.object({
+export const GetDistanceToLocation = z.object({
     query: z.object({
-        lat: z.number(),
-        lon: z.number(),
+        lat: z.coerce.number(),
+        lng: z.coerce.number(),
     }),
 });
 
